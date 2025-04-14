@@ -1,15 +1,17 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { Disclosure, Menu, MenuButton, MenuItems, MenuItem, DisclosureButton,DisclosurePanel } from "@headlessui/react";
 import { Menu as MenuIcon, UserCircle, LogOut, ShoppingBag } from "lucide-react";
+import { useContext } from "react";
+import { StoreContext } from "../context/StoreContext";
 
 export default function Navbar() {
-  const token = null; // Replace with your auth state
-  const navigate = useNavigate();
-
-  const logout = () => {
-    console.log("Logging out...");
-    // Your logout logic here
-  };
+  const navigate= useNavigate();
+  const { token, setToken } = useContext(StoreContext);
+  const logout=()=>{
+    localStorage.removeItem("token");
+    setToken("");
+    navigate("/");
+  }
 
   return (
     <Disclosure as="nav" className="w-full fixed top-0 z-50 bg-white shadow-md font-poppins h-16">
@@ -23,7 +25,7 @@ export default function Navbar() {
 
             {/* Desktop Navigation Links */}
             <div className="hidden md:flex md:items-center md:space-x-8 font-openSans">
-              <NavLink to="/" className="hover:text-coquelicot">
+              <NavLink to="/#Home" className="hover:text-coquelicot">
                 HOME
               </NavLink>
               <NavLink to="/menu" className="hover:text-coquelicot">
@@ -84,7 +86,7 @@ export default function Navbar() {
           <DisclosurePanel className="md:hidden bg-white border-b-1 border-neutral-300 ">
             <div className="px-2 pt-2 pb-3 space-y-1 font-openSans">
               <NavLink
-                to="/"
+                to="/#Home"
                 className="block px-3 py-2 rounded-md text-base font-medium hover:text-coquelicot"
               >
                 HOME

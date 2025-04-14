@@ -4,10 +4,12 @@ import Features from "../components/Features";
 import Carousel from "../components/Carousel";
 import DiscountCoupon from "../components/DiscountCoupon";
 import ContactUs from "../components/ContactUs";
+import ScrollToSection from "../scroll/ScrollToSection";
 
 export default function Home() {
   return (
-    <div>
+    <div id="Home">
+      <ScrollToSection/>
       {/* Hero section */}
       <section
         id="Hero"
