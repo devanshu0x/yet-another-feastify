@@ -4,12 +4,7 @@
 @theme{
   --font-poppins:"Poppins", "sans-serif";
   --font-openSans: "Open Sans", "sans-serif";
-  --color-primary: #E66E43;
-  --color-secondary: #FF6B35;
-  --color-accent: #FFF2ED;
-  --color-raisin: #201e1f;
-  --color-coquelicot: #ff4000;
-  --color-tangerine: #faaa8d;
-  --color-antique: #feefdd;
-  --color-nyanza: #e5f2c9;
+  --color-coquelicot: #ff6b35;
+  --color-turquoise: #2ec4b6;
+
 }

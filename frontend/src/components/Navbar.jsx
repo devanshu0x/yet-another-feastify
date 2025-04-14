@@ -1,152 +1,141 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { Menu, MenuItem, MenuItems, MenuButton } from "@headlessui/react";
-import {
-  Menu as MenuIcon,
-  Search,
-  UserCircle,
-  LogOut,
-  ShoppingBag,
-} from "lucide-react";
+import { Disclosure, Menu, MenuButton, MenuItems, MenuItem, DisclosureButton,DisclosurePanel } from "@headlessui/react";
+import { Menu as MenuIcon, UserCircle, LogOut, ShoppingBag } from "lucide-react";
 
 export default function Navbar() {
-  const token = null; // Replace this with your auth state
+  const token = null; // Replace with your auth state
   const navigate = useNavigate();
 
   const logout = () => {
     console.log("Logging out...");
-    // Your logout logic
+    // Your logout logic here
   };
 
   return (
-    <div className="w-full fixed top-0 z-50 bg-white shadow-md">
-      <div className="px-4 py-3 flex justify-between items-center">
-        {/* Brand */}
-        <NavLink to="/" className="text-3xl font-extrabold text-primary">
-          Feastify
-        </NavLink>
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8">
-          <div className="px-4 py-1 rounded-2xl flex items-center gap-2 text-gray-400 hover:text-primary border border-gray-400 hover:border-primary cursor-pointer shadow-sm">
-            <Search size={16} />
-            <span>Search Menu</span>
-          </div>
-
-          <div className="flex items-center gap-6 text-gray-800">
-            <NavLink to="/" className="hover:text-secondary">
-              HOME
-            </NavLink>
-            <NavLink to="/menu" className="hover:text-secondary">
-              MENU
-            </NavLink>
-            <NavLink to="/#ContactUs" className="hover:text-secondary">
-              CONTACT US
-            </NavLink>
-            <NavLink to="/cart" className="hover:text-secondary">
-              CART
+    <Disclosure as="nav" className="w-full fixed top-0 z-50 bg-white shadow-md font-poppins h-16">
+      {({ open }) => (
+        <>
+          <div className="max-w-7xl mx-auto px-4 h-full flex justify-between items-center">
+            {/* Left: Logo */}
+            <NavLink to="/" className="text-3xl font-extrabold text-[#E66E43]">
+              Feastify
             </NavLink>
 
-            {!token ? (
-              <NavLink to="/login" className="hover:text-secondary">
-                SIGN IN
+            {/* Desktop Navigation Links */}
+            <div className="hidden md:flex md:items-center md:space-x-8 font-openSans">
+              <NavLink to="/" className="hover:text-coquelicot">
+                HOME
               </NavLink>
-            ) : (
-              <Menu as="div" className="relative">
-                <MenuButton>
-                  <UserCircle size={28} className="text-gray-700" />
-                </MenuButton>
-                <MenuItems className="absolute right-0 mt-2 w-40 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg focus:outline-none z-50">
-                  <div className="p-1">
-                    <MenuItem>
+              <NavLink to="/menu" className="hover:text-coquelicot">
+                MENU
+              </NavLink>
+              <NavLink to="/#ContactUs" className="hover:text-coquelicot">
+                CONTACT US
+              </NavLink>
+              <NavLink to="/cart" className="hover:text-coquelicot">
+                CART
+              </NavLink>
+              {!token ? (
+                <NavLink to="/login" className="hover:text-coquelicot">
+                  SIGN IN
+                </NavLink>
+              ) : (
+                <Menu as="div" className="relative">
+                  <MenuButton className="flex items-center">
+                    <UserCircle size={24} className="text-3xl" />
+                  </MenuButton>
+                  <MenuItems className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg">
+                    <MenuItem as="div">
                       {({ active }) => (
-                        <div
-                          className={`${
-                            active ? "text-secondary" : "text-gray-700"
-                          } flex items-center gap-2 p-2 cursor-pointer`}
+                        <button
+                          onClick={() => navigate("/orders")}
+                          className={`${active ? "bg-gray-100 text-coquelicot" : "text-gray-700"} flex items-center gap-3 w-full px-4 py-2 text-sm font-openSans`}
                         >
-                          <ShoppingBag size={18} />
+                          <ShoppingBag size={16} />
                           My Orders
-                        </div>
+                        </button>
                       )}
                     </MenuItem>
-                    <MenuItem>
+                    <MenuItem as="div">
                       {({ active }) => (
-                        <div
+                        <button
                           onClick={logout}
-                          className={`${
-                            active ? "text-secondary" : "text-gray-700"
-                          } flex items-center gap-2 p-2 cursor-pointer`}
+                          className={`${active ? "bg-gray-100 text-coquelicot" : "text-gray-700"} flex items-center gap-3 w-full px-4 py-2 text-sm font-openSans`}
                         >
-                          <LogOut size={18} />
+                          <LogOut size={16} />
                           Log Out
-                        </div>
+                        </button>
                       )}
                     </MenuItem>
-                  </div>
-                </MenuItems>
-              </Menu>
-            )}
-          </div>
-        </div>
+                  </MenuItems>
+                </Menu>
+              )}
+            </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <Menu as="div" className="relative">
-            <MenuButton>
-              <MenuIcon size={28} className="text-primary" />
-            </MenuButton>
-            <MenuItems className="absolute right-0 mt-2 w-48 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg focus:outline-none z-50">
-              <div className="p-2 space-y-2">
-                <MenuItem>
-                  <NavLink to="/" className="block hover:text-secondary">
-                    HOME
-                  </NavLink>
-                </MenuItem>
-                <MenuItem>
-                  <NavLink to="/menu" className="block hover:text-secondary">
-                    MENU
-                  </NavLink>
-                </MenuItem>
-                <MenuItem>
-                  <NavLink to="/#ContactUs" className="block hover:text-secondary">
-                    CONTACT US
-                  </NavLink>
-                </MenuItem>
-                <MenuItem>
-                  <NavLink to="/cart" className="block hover:text-secondary">
-                    CART
-                  </NavLink>
-                </MenuItem>
-                {!token ? (
-                  <MenuItem>
-                    <NavLink to="/login" className="block hover:text-secondary">
-                      SIGN IN
-                    </NavLink>
-                  </MenuItem>
-                ) : (
-                  <>
-                    <MenuItem>
-                      <div className="flex items-center gap-2 hover:text-secondary cursor-pointer">
-                        <ShoppingBag size={18} />
-                        My Orders
-                      </div>
-                    </MenuItem>
-                    <MenuItem>
-                      <div
-                        onClick={logout}
-                        className="flex items-center gap-2 hover:text-secondary cursor-pointer"
-                      >
-                        <LogOut size={18} />
-                        Log Out
-                      </div>
-                    </MenuItem>
-                  </>
-                )}
-              </div>
-            </MenuItems>
-          </Menu>
-        </div>
-      </div>
-    </div>
+            {/* Mobile Menu Button */}
+            <div className="flex md:hidden">
+              <DisclosureButton className="p-2 rounded-md text-gray-400 hover:text-coquelicot focus:outline-none">
+                <MenuIcon size={24} />
+              </DisclosureButton>
+            </div>
+          </div>
+
+          {/* Mobile Navigation Panel */}
+          <DisclosurePanel className="md:hidden bg-white border-b-1 border-neutral-300 ">
+            <div className="px-2 pt-2 pb-3 space-y-1 font-openSans">
+              <NavLink
+                to="/"
+                className="block px-3 py-2 rounded-md text-base font-medium hover:text-coquelicot"
+              >
+                HOME
+              </NavLink>
+              <NavLink
+                to="/menu"
+                className="block px-3 py-2 rounded-md text-base font-medium hover:text-coquelicot"
+              >
+                MENU
+              </NavLink>
+              <NavLink
+                to="/#ContactUs"
+                className="block px-3 py-2 rounded-md text-base font-medium hover:text-coquelicot"
+              >
+                CONTACT US
+              </NavLink>
+              <NavLink
+                to="/cart"
+                className="block px-3 py-2 rounded-md text-base font-medium hover:text-coquelicot"
+              >
+                CART
+              </NavLink>
+              {!token ? (
+                <NavLink
+                  to="/login"
+                  className="block px-3 py-2 rounded-md text-base font-medium hover:text-coquelicot"
+                >
+                  SIGN IN
+                </NavLink>
+              ) : (
+                <div className="border-t border-gray-200 pt-4">
+                  <button
+                    onClick={() => navigate("/orders")}
+                    className="w-full flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-coquelicot"
+                  >
+                    <ShoppingBag size={16} className="mr-2" />
+                    My Orders
+                  </button>
+                  <button
+                    onClick={logout}
+                    className="w-full flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-coquelicot"
+                  >
+                    <LogOut size={16} className="mr-2" />
+                    Log Out
+                  </button>
+                </div>
+              )}
+            </div>
+          </DisclosurePanel>
+        </>
+      )}
+    </Disclosure>
   );
 }
