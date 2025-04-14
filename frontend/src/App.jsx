@@ -7,6 +7,7 @@ import Menu from "./pages/Menu"
 import Cart from "./pages/Cart"
 import OrderPage from "./pages/Order"
 import SuccessPage from "./pages/SuccessPage"
+import MyOrdersPage from "./pages/MyOrders"
 
 
 
@@ -24,6 +25,7 @@ function App() {
       <Route path="/cart" element={<Cart/>} ></Route>
       <Route path="/order" element={<OrderPage/>} ></Route>
       <Route path="/order/success" element={<SuccessPage/>} ></Route>
+      <Route path="/myorders" element={<MyOrdersPage/>} ></Route>
 
       </Routes>
     </div>

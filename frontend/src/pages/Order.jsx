@@ -14,31 +14,28 @@ import {
   Save,
 } from "lucide-react";
 import { Listbox, Transition, RadioGroup } from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 
 export default function OrderPage() {
-  const { cartItem, foodlist } = useContext(StoreContext);
+  const navigate= useNavigate();
+  const { cartItem, foodlist ,addressesList,saveAddress, placeOrder } = useContext(StoreContext);
 
   // Saved addresses
-  const [addresses, setAddresses] = useState([
-    {
-      id: 1,
-      type: "home",
-      title: "Home",
-      address: "123 Green Park, Anna Nagar, Chennai - 600040",
-      default: true,
-    },
-    {
-      id: 2,
-      type: "work",
-      title: "Office",
-      address: "Block C, Tech Park, Ambattur, Chennai - 600053",
-      default: false,
-    },
-  ]);
+  const addresses= addressesList;
 
   // States
-  const [selectedAddress, setSelectedAddress] = useState(
-    addresses.find((addr) => addr.default) || addresses[0]
+  const [selectedAddress, setSelectedAddress] = useState( ()=>{
+    if(addresses.length){
+      return addresses[0];
+    }
+    else{
+      return {};
+    }
+  }
+    
+    
   );
   const [useNewAddress, setUseNewAddress] = useState(false);
   const [newAddress, setNewAddress] = useState({
@@ -77,19 +74,19 @@ const [tableNumber, setTableNumber] = useState('');
     e.preventDefault();
 
     // This would typically send data to your backend
-    console.log({
+    const orderData={
       address: useNewAddress ? newAddress : selectedAddress,
-      paymentMethod,
+      paymentMode:paymentMethod,
+      items:cartItem,
       phoneNumber,
-      upiId: paymentMethod === "upi" ? upiId : null,
       notes,
-      orderTotal: totalCost,
-    });
+      amount: totalCost,
+    };
+
 
     // If saving new address
     if (useNewAddress && newAddress.saveAddress) {
       const newSavedAddress = {
-        id: addresses.length + 1,
         type: newAddress.type,
         title:
           newAddress.title ||
@@ -99,14 +96,18 @@ const [tableNumber, setTableNumber] = useState('');
             ? "Office"
             : "Other"),
         address: newAddress.address,
-        default: false,
       };
-
-      setAddresses([...addresses, newSavedAddress]);
+      saveAddress(newSavedAddress);
+      // setAddresses([...addresses, newSavedAddress]);
     }
 
     // Navigate to order confirmation page or show success message
-    alert("Order placed successfully!");
+    if(placeOrder(orderData)){
+      navigate("/order/success");
+    }
+    else{
+      toast.error("Failed to place order");
+    }
   };
 
   // Cart items component

@@ -75,4 +75,29 @@ const registerUser = async (req, res) => {
   }
 };
 
-export { loginUser, registerUser };
+const addressList= async (req,res)=>{
+  try {
+    let userData = await userModel.findById(req.body.userId);
+    let addresses = userData.addresses;
+    return res.json({ success: true, addresses: addresses });
+  } catch (error) {
+    console.log(error);
+    return res.json({ success: false, message: "Error" });
+  }
+}
+
+const saveAddress= async (req,res)=>{
+  try {
+    let userData = await userModel.findById(req.body.userId);
+    let addresses = userData.addresses;
+    const newAddress=req.body.newAddress;
+    addresses.push(newAddress);
+    await userModel.findByIdAndUpdate(req.body.userId, { addresses });
+    return res.json({ success: true, message: "Added to address" });
+  } catch (error) {
+    console.log(error);
+    return res.json({ success: false, message: "Error" });
+  }
+}
+
+export { loginUser, registerUser,addressList,saveAddress };

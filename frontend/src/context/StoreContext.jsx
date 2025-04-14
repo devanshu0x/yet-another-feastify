@@ -8,6 +8,7 @@ const StoreContextProvider=(props)=>{
     const [token,setToken]=useState("");
     const [cartItem,setCartItem]=useState({});
     const [foodlist,setFoodlist]=useState([]);
+    const [addressesList,setAddressesList]=useState([]);
 
     const addToCart=async (itemId)=>{
         if(!cartItem[itemId]){
@@ -34,13 +35,32 @@ const StoreContextProvider=(props)=>{
     }
 
     const loadCartData= async (token)=>{
-        const response =await axios.post(url+"api/cart/get",{},{headers:{token}});
+        const response =await axios.get(url+"api/cart/list",{headers:{token}});
+        // console.log(response.data);
         setCartItem(response.data.cartData);
     }
+
 
     const fetchFoodList= async ()=>{
         const response = await axios.get(url+"api/food/list");
         setFoodlist(response.data.data);
+    }
+
+    const saveAddress= async (newAddress)=>{
+        if(token){
+            await axios.post(url+"api/user/saveaddress",{newAddress},{headers:{token}})
+        }
+    }
+    
+    const placeOrder= async(data)=>{
+        try{
+            const response=await axios.post(url+"api/order/place",{...data},{headers:{token}});
+            console.log("order placed")
+            return response.data.success;
+        }catch(e){
+            console.log(e);
+            return false;
+        }
     }
     
     useEffect(()=>{
@@ -58,6 +78,16 @@ const StoreContextProvider=(props)=>{
         loadData();
     },[])
 
+    useEffect(()=>{
+        async function loadAddress(){
+            if(token){
+                const response = await axios.get(url+"api/user/addresslist",{headers:{token}});
+                setAddressesList(response.data.addresses);
+            }
+        }
+        loadAddress();
+    },[token])
+
     const contextValue={
         url,
         token,
@@ -67,7 +97,10 @@ const StoreContextProvider=(props)=>{
         addToCart,
         removeFromCart,
         deleteCartItem,
-        foodlist
+        foodlist,
+        addressesList,
+        saveAddress,
+        placeOrder
     }
     return(
         <StoreContext.Provider value={contextValue}>

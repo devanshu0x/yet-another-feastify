@@ -52,7 +52,7 @@ export default function Navbar() {
                     <MenuItem as="div">
                       {({ active }) => (
                         <button
-                          onClick={() => navigate("/orders")}
+                          onClick={() => navigate("/myorders")}
                           className={`${active ? "bg-gray-100 text-coquelicot" : "text-gray-700"} flex items-center gap-3 w-full px-4 py-2 text-sm font-openSans`}
                         >
                           <ShoppingBag size={16} />
@@ -121,7 +121,7 @@ export default function Navbar() {
               ) : (
                 <div className="border-t border-gray-200 pt-4">
                   <button
-                    onClick={() => navigate("/orders")}
+                    onClick={() => navigate("/myorders")}
                     className="w-full flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-coquelicot"
                   >
                     <ShoppingBag size={16} className="mr-2" />

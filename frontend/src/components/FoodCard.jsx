@@ -20,7 +20,7 @@ export default function FoodCard({ item, popularDish }) {
 
   const addToCartHandler = () => {
     if (!token) {
-      navigate("/login", { state: { error: "You Need to Sign In first" } });
+      navigate("/login");
     } else {
       if (cartItem[item._id] === undefined || cartItem[item._id] === 0) {
         addToCart(item._id);

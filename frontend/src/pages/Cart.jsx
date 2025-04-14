@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { StoreContext } from "../context/StoreContext";
 import { ChevronDown, ChevronUp, X, ShoppingBag, ShoppingCart } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Cart() {
+  const navigate=useNavigate();
   const { cartItem, addToCart, removeFromCart, deleteCartItem, foodlist, url } =
     useContext(StoreContext);
     
@@ -197,7 +198,7 @@ export default function Cart() {
           </div>
           
           <div className="mt-8">
-            <button className="w-full py-3 px-4 bg-[#ff6b35] hover:bg-[#ff6b35]/90 rounded-lg text-white font-medium shadow-sm transition-colors duration-300">
+            <button onClick={()=>navigate("/order")} className="w-full py-3 px-4 bg-[#ff6b35] hover:bg-[#ff6b35]/90 rounded-lg text-white font-medium shadow-sm transition-colors duration-300">
               Proceed to Checkout
             </button>
           </div>
