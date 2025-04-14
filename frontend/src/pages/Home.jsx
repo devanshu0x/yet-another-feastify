@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
-import { UtensilsCrossed, CupSoda } from "lucide-react";
-// import Features from "../components/Features";
+import { UtensilsCrossed, CupSoda, ChevronDown } from "lucide-react";
+import Features from "../components/Features";
+import Carousel from "../components/Carousel";
+import DiscountCoupon from "../components/DiscountCoupon";
+import ContactUs from "../components/ContactUs";
 
 export default function Home() {
   return (
@@ -104,7 +107,44 @@ export default function Home() {
       </section>
 
       {/* Features */}
-      {/* <Features /> */}
+      <Features />
+
+      {/* Popular Dishes  */}
+      <section className="py-4 mb-16 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4 text-neutral-800 font-poppins">
+            Popular
+            <span className="text-coquelicot"> Dishes</span>
+          </h2>
+          <p className="text-neutral-600 text-lg max-w-2xl mx-auto">
+            Discover top-rated restaurants in your area, with thousands of
+            delicious options just a few taps away.
+          </p>
+        </div>
+
+        {/* carousel */}
+        <Carousel/>
+
+        <div className="flex justify-center items-center mb-12">
+          <NavLink
+            to="/menu"
+            className="bg-white hover:bg-neutral-100 text-neutral-800 border border-neutral-300 font-bold py-3 px-8 rounded-full transition duration-300 text-lg flex gap-2 items-center justify-center"
+          >
+            <div>Browse More Dishes</div>
+            <div className="relative top-1">
+              <ChevronDown size={20} className="text-neutral-800" />
+            </div>
+          </NavLink>
+        </div>
+
+        {/* Discount coupon */}
+        <DiscountCoupon/>
+      </div>
+    </section>
+     {/* Contact us  */}
+     <ContactUs/>
+
     </div>
   );
 }
