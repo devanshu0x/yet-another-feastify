@@ -37,10 +37,12 @@ const StoreContextProvider=(props)=>{
         const response =await axios.post(url+"api/cart/get",{},{headers:{token}});
         setCartItem(response.data.cartData);
     }
+
     const fetchFoodList= async ()=>{
         const response = await axios.get(url+"api/food/list");
         setFoodlist(response.data.data);
     }
+    
     useEffect(()=>{
         console.log(cartItem)
     },[cartItem])

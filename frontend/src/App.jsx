@@ -5,6 +5,8 @@ import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
 import Menu from "./pages/Menu"
 import Cart from "./pages/Cart"
+import OrderPage from "./pages/Order"
+import SuccessPage from "./pages/SuccessPage"
 
 
 
@@ -20,6 +22,8 @@ function App() {
       <Route path="/register" element={<SignUp/>} ></Route>
       <Route path="/menu" element={<Menu/>} ></Route>
       <Route path="/cart" element={<Cart/>} ></Route>
+      <Route path="/order" element={<OrderPage/>} ></Route>
+      <Route path="/order/success" element={<SuccessPage/>} ></Route>
 
       </Routes>
     </div>

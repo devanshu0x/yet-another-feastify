@@ -6,10 +6,12 @@ import { StoreContext } from "../context/StoreContext";
 
 export default function Navbar() {
   const navigate= useNavigate();
-  const { token, setToken } = useContext(StoreContext);
+  const { token, setToken,setCartItem } = useContext(StoreContext);
   const logout=()=>{
+
     localStorage.removeItem("token");
     setToken("");
+    setCartItem({});
     navigate("/");
   }
 
