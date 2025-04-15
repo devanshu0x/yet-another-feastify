@@ -54,8 +54,18 @@ const StoreContextProvider=(props)=>{
     
     const placeOrder= async(data)=>{
         try{
-            const response=await axios.post(url+"api/order/place",{...data},{headers:{token}});
+            
+            const items=Object.keys(cartItem).map((id)=>{
+                const food= foodlist.find((li)=>li._id===id);
+                return {
+                    name:food.name,
+                    quantity: cartItem[id],
+                    price:food.price
+                }
+            })
+            const response=await axios.post(url+"api/order/place",{...data,items},{headers:{token}});
             console.log("order placed")
+            setCartItem({});
             return response.data.success;
         }catch(e){
             console.log(e);

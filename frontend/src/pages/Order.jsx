@@ -77,10 +77,11 @@ const [tableNumber, setTableNumber] = useState('');
     const orderData={
       address: useNewAddress ? newAddress : selectedAddress,
       paymentMode:paymentMethod,
-      items:cartItem,
       phoneNumber,
       notes,
       amount: totalCost,
+      isDineIn,
+      tableNumber
     };
 
 

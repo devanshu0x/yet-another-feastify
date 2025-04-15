@@ -12,7 +12,9 @@ const placeOrder = async (req, res) => {
       address: req.body.address,
       paymentMode:req.body.paymentMode,
       notes:req.body.notes,
-      phoneNumber:req.body.phoneNumber
+      phoneNumber:req.body.phoneNumber,
+      isDineIn:req.body.isDineIn,
+      tableNumber:req.body.tableNumber
     });
     await newOrder.save();
     await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} });
