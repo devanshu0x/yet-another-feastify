@@ -5,6 +5,7 @@ import validator from "validator";
 
 // login user
 
+
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -100,4 +101,18 @@ const saveAddress= async (req,res)=>{
   }
 }
 
-export { loginUser, registerUser,addressList,saveAddress };
+const getName= async (req,res)=>{
+  try{
+    let userData= await userModel.findById(req.headers.userid);
+    // console.log(req.headers);
+    //console.log(userData);
+    let name=userData.name;
+    return res.json({success:true, name});
+  }
+  catch(e){
+    console.log(e);
+    return res.json({success:false, message:"Error"});
+  }
+}
+
+export { loginUser, registerUser,addressList,saveAddress, getName };

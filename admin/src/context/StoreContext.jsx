@@ -29,12 +29,15 @@ const StoreContextProvider = (props) => {
     loadData();
   }, []);
 
+  
+
   const contextValue = {
     token,
     setToken,
     admin,
     setAdmin,
-    foodlist
+    foodlist,
+
   };
   return (
     <StoreContext.Provider value={contextValue}>

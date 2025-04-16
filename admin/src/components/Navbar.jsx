@@ -21,7 +21,7 @@ const Navbar = () => {
       <span className="text-3xl font-bold text-violet-500">Feastify</span>
       {token && admin ? (
         <p
-          className="text-xl text-gray-700 cursor-pointer hover:text-[#ff6b35] transition-colors"
+          className="text-xl text-violet-400 cursor-pointer border rounded-full px-4 py-1 hover:text-violet-600 transition-colors"
           onClick={logout}
         >
           Logout

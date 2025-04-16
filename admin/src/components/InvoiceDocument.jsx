@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 import { Font } from "@react-pdf/renderer";
+import { StoreContext } from "../context/StoreContext";
+import axios from "axios";
 
 // Register Roboto font
 Font.register({
   family: "Roboto",
   src: "../assets/fonts/Roboto-Regular.ttf", // adjust the path as needed
 });
+
+const url="http://localhost:5000/";
+const token=localStorage.getItem("token");
+const getName= async(userId)=>{
+  const response= await axios.get(url+"api/user/name",{headers:{token, userId}});
+  if(response.data.success){
+    return response.data.name;
+  }
+  else{
+    return "unknown";
+  }
+}
 
 const styles = StyleSheet.create({
   page: {
@@ -108,6 +122,15 @@ const InvoiceDocument = ({ order }) => {
       maximumFractionDigits: 2,
     })}`;
   };
+  const [name,setName]=useState("unknown");
+
+  useEffect(()=>{
+    async function loadName() {
+      const result= await getName(order.userId);
+      setName(result);
+    }
+    loadName();
+  },[])
 
   return (
     <Document>
@@ -123,7 +146,7 @@ const InvoiceDocument = ({ order }) => {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Customer Information</Text>
 
-          <Text>userId: {order.userId}</Text>
+          <Text>user name: {name}</Text>
           <Text style={{ marginTop: 4 }}>
             Address: {order.address?.address}
           </Text>

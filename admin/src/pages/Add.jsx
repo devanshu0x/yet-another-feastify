@@ -55,13 +55,13 @@ const Add = ({ url }) => {
 
   useEffect(() => {
     if (!admin || !token) {
-      toast.error("Please Login with admin id first");
+      
       navigate("/");
     }
   }, []);
 
   return (
-    <div className="add w-3/4 mx-auto mt-12 text-gray-300 pb-18">
+    <div className="mt-12 text-gray-300 pb-18">
       <form onSubmit={onSubmitHandler} className="space-y-6">
         <div className="add-img-upload flex-col items-center">
           <p>Upload image</p>

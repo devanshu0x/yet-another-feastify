@@ -16,15 +16,17 @@ const App = () => {
       <ToastContainer />
       <Navbar />
       <hr />
-      <div className="flex gap-10">
-        <Sidebar />
-        <Routes>
-          <Route path="/" element={<Login url={url}/>} />
-          <Route path="/add" element={<Add url={url}/>} />
-          <Route path="/list" element={<List url={url}/>} />
-          <Route path="/orders" element={<Orders url={url}/>} />
-        </Routes>
-      </div>
+      <div className="flex min-h-screen">
+  <Sidebar />
+  <div className="flex-1 p-8">
+    <Routes>
+      <Route path="/" element={<Login url={url} />} />
+      <Route path="/add" element={<Add url={url} />} />
+      <Route path="/list" element={<List url={url} />} />
+      <Route path="/orders" element={<Orders url={url} />} />
+    </Routes>
+  </div>
+</div>
     </div>
   );
 };
